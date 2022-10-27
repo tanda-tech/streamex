@@ -245,7 +245,7 @@ defmodule Streamex.Feed do
   end
 
   defp body_create_following(feed) do
-    Poison.encode!(%{"target" => get_follow_target_string(feed)})
+    Jason.encode!(%{"target" => get_follow_target_string(feed)})
   end
 
   defp body_create_following_many(feeds) do
@@ -257,6 +257,6 @@ defmodule Streamex.Feed do
         }
       end)
 
-    Poison.encode!(feeds)
+    Jason.encode!(feeds)
   end
 end

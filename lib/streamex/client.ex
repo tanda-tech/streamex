@@ -48,7 +48,7 @@ defmodule Streamex.Client do
 
   @doc false
   def parse_response({:error, body}), do: {:error, body}
-  def parse_response({:ok, %{} = r}), do: Poison.decode!(r.body)
+  def parse_response({:ok, %{} = r}), do: Jason.decode!(r.body)
 
   def parse_response_no_decode({:error, body}), do: {:error, body}
   def parse_response_no_decode({:ok, %{} = r}), do: r.body

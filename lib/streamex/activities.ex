@@ -227,10 +227,10 @@ defmodule Streamex.Activities do
   defp body_create_batch_activities(feeds, activity) do
     feeds = Enum.map(feeds, fn feed -> Feed.get_follow_target_string(feed) end)
     payload = %{"feeds" => feeds, "activity" => activity}
-    Poison.encode!(payload)
+    Jason.encode!(payload)
   end
 
   defp body_create_update_activities(activities) do
-    Poison.encode!(%{"activities" => activities})
+    Jason.encode!(%{"activities" => activities})
   end
 end
