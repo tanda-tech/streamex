@@ -42,7 +42,7 @@ defmodule Streamex.Mixfile do
       {:timex, "~> 3.7.6"},
       {:ex_doc, "~> 0.28.0", only: :dev},
       {:exvcr, "~> 0.13.3", only: :test},
-      {:excoveralls, "~> 0.14.4", only: :test}
+      {:excoveralls, "~> 0.15.0", only: :test}
     ]
   end
 
