@@ -13,7 +13,6 @@ defmodule Streamex.Feed do
 
   @doc """
   Initializes a new feed.
-  Both `slug` and `user_id` must contain only alphanumeric characters.
   Returns `{:ok, feed}`, or `{:error, message}` if feed is invalid.
 
   ## Examples
@@ -25,11 +24,12 @@ defmodule Streamex.Feed do
       {:error, "..."}
 
   """
-  def new(slug, user_id) do
-    case validate([slug, user_id]) do
-      true -> {:ok, %__MODULE__{slug: slug, user_id: user_id, id: "#{slug}#{user_id}"}}
-      false -> {:error, ErrorInput.message()}
-    end
+  def new(slug, id) do
+    {:ok, new!(slug, id)}
+  end
+
+  def new!(slug, id) do
+    %__MODULE__{slug: slug, user_id: id, id: Enum.join([slug, id], ":")}
   end
 
   @doc """
@@ -194,10 +194,6 @@ defmodule Streamex.Feed do
   def handle_response(%{"exception" => exception}), do: {:error, exception}
   def handle_response(%{"results" => results}), do: {:ok, Enum.map(results, &Follow.from_map/1)}
   def handle_response(%{"duration" => _}), do: {:ok, nil}
-
-  defp validate([string | t]), do: validate(string) && validate(t)
-  defp validate([]), do: true
-  defp validate(string), do: !Regex.match?(~r/\W/, string)
 
   defp endpoint_get_followers(feed) do
     <<"feed/", feed.slug::binary, "/", feed.user_id::binary, "/followers/">>

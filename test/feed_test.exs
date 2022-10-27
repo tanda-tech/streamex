@@ -9,17 +9,17 @@ defmodule FeedTest do
     ExVCR.Config.cassette_library_dir("fixture/vcr_cassettes")
   end
 
-  test "Feed initialization params get validated" do
-    {status_a, error_a} = Feed.new("user:", "eric")
-    {status_b, error_b} = Feed.new("user", ":eric")
-    {status_c, _} = Feed.new("user", "eric")
+  # test "Feed initialization params get validated" do
+  #   {status_a, error_a} = Feed.new("user:", "eric")
+  #   {status_b, error_b} = Feed.new("user", ":eric")
+  #   {status_c, _} = Feed.new("user", "eric")
 
-    assert status_a == :error
-    assert status_b == :error
-    assert error_a == ErrorInput.message()
-    assert error_b == ErrorInput.message()
-    assert status_c == :ok
-  end
+  #   assert status_a == :error
+  #   assert status_b == :error
+  #   assert error_a == ErrorInput.message()
+  #   assert error_b == ErrorInput.message()
+  #   assert status_c == :ok
+  # end
 
   test "Feed follow request with invalid input returns error" do
     use_cassette "feed_post_follow_invalid" do
